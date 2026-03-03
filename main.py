@@ -13,18 +13,22 @@ ROLL_LABEL = "Roll"
 
 def get_tasks():
     r = requests.get(
-        "https://api.todoist.com/rest/v2/tasks",
+        "https://api.todoist.com/api/v1/tasks",
         headers={
             "Authorization": f"Bearer {TOKEN}",
-            "Content-Type": "application/json"
-        },
-        params={"filter": "today | overdue"}
+        }
     )
     r.raise_for_status()
     return r.json()
 
 def update_task(task_id, **kwargs):
-    r = requests.post(f"{BASE_URL}/tasks/{task_id}", headers=HEADERS, json=kwargs)
+    r = requests.post(
+        f"https://api.todoist.com/api/v1/tasks/{task_id}",
+        headers={
+            "Authorization": f"Bearer {TOKEN}",
+        },
+        json=kwargs
+    )
     r.raise_for_status()
 
 def is_due_today(task):
