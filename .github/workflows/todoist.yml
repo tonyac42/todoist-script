@@ -1,9 +1,9 @@
 name: Todoist Priority Automation
 
-on:
-  schedule:
-    - cron: "*/1 * * * *"
-  workflow_dispatch:
+#on:
+ # schedule:
+  #  - cron: "*/1 * * * *"
+#  workflow_dispatch:
 
 jobs:
   run-script:
