@@ -18,7 +18,7 @@ def get_tasks():
             "Authorization": f"Bearer {TOKEN}",
             "Content-Type": "application/json"
         },
-        params={"filter": "all"}
+        params={"filter": "today | overdue"}
     )
     r.raise_for_status()
     return r.json()
