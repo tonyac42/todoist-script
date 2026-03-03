@@ -1,0 +1,28 @@
+name: Todoist Priority Manager
+
+on:
+  schedule:
+    # Runs every 5 minutes
+    - cron: "*/5 * * * *"
+  workflow_dispatch: # Allow manual triggering from the Actions tab
+
+jobs:
+  run-priority-manager:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Todoist Priority Manager
+        env:
+          TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
+        run: python new_main.py
