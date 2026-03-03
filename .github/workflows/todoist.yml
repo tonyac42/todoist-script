@@ -1,0 +1,27 @@
+name: Todoist Priority Automation
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"   # runs every minute
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        env:
+          TODOIST_TOKEN: ${{ secrets.TODOIST_TOKEN }}
+        run: python main.py
