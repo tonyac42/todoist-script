@@ -42,14 +42,21 @@ def update_task(task_id, **fields):
 def is_due_today(task):
     if not task.get("due"):
         return False
-    return task["due"]["date"] == datetime.now().date().isoformat()
+
+    due_str = task["due"]["date"]
+    due_date = datetime.fromisoformat(due_str).date()
+
+    return due_date == datetime.now().date()
 
 
 def is_overdue(task):
     if not task.get("due"):
         return False
-    due = datetime.fromisoformat(task["due"]["date"])
-    return due < datetime.now().date()
+
+    due_str = task["due"]["date"]  # "YYYY-MM-DD"
+    due_date = datetime.fromisoformat(due_str).date()
+
+    return due_date < datetime.now().date()
 
 
 def clean_name(name):
